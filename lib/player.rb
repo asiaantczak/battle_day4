@@ -3,9 +3,8 @@ class Player
 
   STARTING_HIT_POINTS = 100
 
-
-  def initialize(hit_points = STARTING_HIT_POINTS)
-    @name = nil
+  def initialize(name, hit_points = STARTING_HIT_POINTS)
+    @name = name
     @hit_points = hit_points
   end
 
