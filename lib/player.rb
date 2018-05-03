@@ -15,6 +15,4 @@ class Player
   def reduce_hit_points(points)
     @hit_points -= points
   end
-
-
 end

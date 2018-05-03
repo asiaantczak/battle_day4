@@ -19,6 +19,8 @@ class Battle < Sinatra::Base
   end
 
   get '/play' do
+    session[:the_game] = Game.new
+
     @player_1_name = $player_1.name
     @player_1_hp = $player_1.hit_points
     @player_2_name = $player_2.name
@@ -27,8 +29,7 @@ class Battle < Sinatra::Base
   end
 
   post '/attack_form' do
-    value = 10 if params[:attack_type] == 'attack'
-    $player_2.reduce_hit_points(10)
+    session[:the_game].attack(params[:attack_type], $player_2)
     redirect '/attack'
   end
 
