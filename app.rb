@@ -1,5 +1,6 @@
 require 'sinatra/base'
 require './lib/player'
+require './lib/game'
 
 class Battle < Sinatra::Base
 
@@ -26,12 +27,15 @@ class Battle < Sinatra::Base
 
   post '/attack_form' do
     @game = session[:the_game]
-    @game.attack(params[:attack_type], @game.player_2)
-    redirect '/attack'
+    attack_type = params[:attack_type]
+    attacking = params[:attacking]
+    @game.attack(attack_type, attacking)
+    redirect "/attack?player=#{attacking}"
   end
 
   get '/attack' do
     @game = session[:the_game]
+    @selected_player = params[:player].name
     erb(:attack)
   end
 
