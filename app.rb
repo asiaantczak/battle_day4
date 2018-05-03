@@ -20,20 +20,18 @@ class Battle < Sinatra::Base
   end
 
   get '/play' do
-    @player_1_name = session[:the_game].players[0].name
-    @player_1_hp = session[:the_game].players[0].hit_points
-    @player_2_name = session[:the_game].players[1].name
-    @player_2_hp = session[:the_game].players[1].hit_points
+    @game = session[:the_game]
     erb(:play)
   end
 
   post '/attack_form' do
-    session[:the_game].attack(params[:attack_type], session[:the_game].players[1])
+    @game = session[:the_game]
+    @game.attack(params[:attack_type], @game.player_2)
     redirect '/attack'
   end
 
   get '/attack' do
-    @player_2_name = session[:the_game].players[1].name
+    @game = session[:the_game]
     erb(:attack)
   end
 
