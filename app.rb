@@ -32,8 +32,8 @@ class Battle < Sinatra::Base
     redirect '/attack'
   end
 
-
   get '/attack' do
+    @player_2_name = $player_2.name
     erb(:attack)
   end
 
