@@ -21,15 +21,23 @@ feature 'The whole lot' do
   feature 'attack player' do
     scenario 'Player 1 attacks Player 2' do
       sign_in_and_play
-      click_button('attack')
+      click_button('Attack Player 2')
       expect(page).to have_content("#{player_2_name} has been hit!")
+    end
+  end
+
+  feature 'attack player' do
+    scenario 'Player 2 attacks Player 1' do
+      sign_in_and_play
+      click_button('Attack Player 1')
+      expect(page).to have_content("#{player_1_name} has been hit!")
     end
   end
 
   feature 'attack player' do
     scenario 'Reduce Player 2 hit points' do
       sign_in_and_play
-      click_button('attack')
+      click_button('Attack Player 2')
       click_link('return_to_battle')
       expect(page).to have_content(
         "#{player_2_name}: #{starting_hit_points - attack_value} HP")

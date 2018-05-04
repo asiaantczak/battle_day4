@@ -20,22 +20,27 @@ class Battle < Sinatra::Base
     redirect '/play'
   end
 
-  get '/play' do
+  before do
     @game = session[:the_game]
+  end
+
+  get '/play' do
     erb(:play)
   end
 
   post '/attack_form' do
-    @game = session[:the_game]
-    attack_type = params[:attack_type]
-    attacking = params[:attacking]
-    @game.attack(attack_type, attacking)
-    redirect "/attack?player=#{attacking}"
+    if params[:attacking] == 'player_2'
+      session['attacking'] = @game.player_2
+    else
+      session['attacking'] = @game.player_1
+    end
+
+    @game.attack('normal', session['attacking'])
+    redirect "/attack"
   end
 
   get '/attack' do
-    @game = session[:the_game]
-    @selected_player = params[:player].name
+    @attacking = session['attacking']
     erb(:attack)
   end
 
