@@ -35,7 +35,7 @@ class Battle < Sinatra::Base
       session['attacking'] = @game.player_1
     end
 
-    @game.attack('normal', session['attacking'])
+    @game.attack(session['attacking'])
     redirect "/attack"
   end
 

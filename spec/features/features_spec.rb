@@ -11,22 +11,20 @@ feature 'The whole lot' do
     end
   end
 
-  feature 'view hit hitpoints' do
+  feature 'View hit hitpoints' do
     scenario 'See players 2 hit points' do
       sign_in_and_play
       expect(page).to have_content("#{player_2_name}: #{starting_hit_points} HP")
     end
   end
 
-  feature 'attack player' do
+  feature 'Attack player' do
     scenario 'Player 1 attacks Player 2' do
       sign_in_and_play
       click_button('Attack Player 2')
       expect(page).to have_content("#{player_2_name} has been hit!")
     end
-  end
 
-  feature 'attack player' do
     scenario 'Player 2 attacks Player 1' do
       sign_in_and_play
       click_button('Attack Player 1')
@@ -34,13 +32,17 @@ feature 'The whole lot' do
     end
   end
 
-  feature 'attack player' do
-    scenario 'Reduce Player 2 hit points' do
+  feature 'Hit points' do
+    scenario 'Reduce Player 2 hit points and the reduce Player 1 hit points' do
       sign_in_and_play
       click_button('Attack Player 2')
       click_link('return_to_battle')
       expect(page).to have_content(
         "#{player_2_name}: #{starting_hit_points - attack_value} HP")
+      click_button('Attack Player 1')
+      click_link('return_to_battle')
+      expect(page).to have_content(
+        "#{player_1_name}: #{starting_hit_points - attack_value} HP")
     end
   end
 end
